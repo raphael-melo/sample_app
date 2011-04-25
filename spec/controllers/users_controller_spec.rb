@@ -266,25 +266,24 @@ describe UsersController do
 
     describe "as a non-signed-in user" do
       it "should deny access" do
-        puts "User email: #{@user.email}"
         delete :destroy, :id => @user
-       	response.should redirect_to(signin_path)
+        response.should redirect_to(signin_path)
       end
     end
     
     describe "as a non-admin user" do
       it "should protect the page" do
-	test_sign_in(@user)
+        test_sign_in(@user)
         delete :destroy, :id => @user
-	response.should redirect_to(root_path)
+        response.should redirect_to(root_path)
       end
     end
 
     describe "as an admin user" do
       
       before(:each) do
-	admin = Factory(:user, :email => "admin@example.com", :admin => true)
-	test_sign_in(admin)
+        admin = Factory(:user, :email => "admin@example.com", :admin => true)
+        test_sign_in(admin)
       end 
 
       it "should destroy the user" do
